@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from django.db import transaction
 from django.db.models import Q
 
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from mod_contact.models import Contact
 from mod_contact.serializers import ContactSerializer
@@ -29,13 +28,13 @@ def get_contact_filter(request):
     entreprise = request.query_params.get('entreprise', None)
 
     if nom is not None:
-        query &= Q(nom = nom)
+        query &= Q(nom__icontains = nom)
     
     if prenom is not None:
-        query &= Q(prenom = prenom)
+        query &= Q(prenom__icontains = prenom)
 
     if nom_prenom is not None:
-        query &= Q(nom__contains = nom_prenom) | Q(prenom__contains = nom_prenom)
+        query &= Q(nom__icontains = nom_prenom) | Q(prenom__icontains = nom_prenom)
 
     if phone is not None:
         query &= Q(phone = phone)
@@ -58,7 +57,7 @@ def get_contact_filter(request):
 @transaction.atomic
 def create_contact(request):
     """
-        Création d'un contact
+        DESC : Création d'un contact
     """
 
     data = {
@@ -97,7 +96,7 @@ def create_contact(request):
 @transaction.atomic
 def update_contact(request, pk):
     """
-        DESC : Modification d'un contac
+        DESC : Modification d'un contact
     """
     try:
         contact = Contact.objects.get(pk=pk)

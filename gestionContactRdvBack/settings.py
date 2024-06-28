@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mod_contact',
+    'mod_rdv'
 ]
 
 MIDDLEWARE = [
