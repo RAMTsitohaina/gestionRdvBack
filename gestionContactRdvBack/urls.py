@@ -20,7 +20,7 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('rdv/api/contact', include ('mod_contact.urls')),
+    path('rdv/api/contact/', include ('mod_contact.urls')),
 
-    path('rdv/api/rdv', include ('mod_rdv.urls')),
+    path('rdv/api/rdv/', include ('mod_rdv.urls')),
 ]

@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+from django.conf import settings
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +26,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1*^#@fzsxtj@xr57d^v@7v$#7e@)d3es%im8%dsen!sirxc&$*'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:4200",
+]
+
+CORS_ALLOWED_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -40,7 +58,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mod_contact',
-    'mod_rdv'
+    'mod_rdv',
+
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +71,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'gestionContactRdvBack.urls'
@@ -79,8 +102,18 @@ WSGI_APPLICATION = 'gestionContactRdvBack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'HOST': os.getenv('DB_HOST'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PORT': os.getenv('DB_PORT'),
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'HOST': 'localhost',
+        # 'NAME': 'rdv',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'azerty',
+        # 'PORT': '5432',
     }
 }
 

@@ -19,6 +19,7 @@ def get_contact_filter(request):
     query = Q()
 
     # Critère de recherche
+    id = request.query_params.get('id', None)
     nom = request.query_params.get('nom', None)
     prenom = request.query_params.get('prenom', None)
     nom_prenom = request.query_params.get('nom_prenom', None)
@@ -26,6 +27,9 @@ def get_contact_filter(request):
     adresse = request.query_params.get('adresse', None)
     profession = request.query_params.get('profession', None)
     entreprise = request.query_params.get('entreprise', None)
+
+    if id is not None:
+        query &= Q(id = id)
 
     if nom is not None:
         query &= Q(nom__icontains = nom)
@@ -37,16 +41,16 @@ def get_contact_filter(request):
         query &= Q(nom__icontains = nom_prenom) | Q(prenom__icontains = nom_prenom)
 
     if phone is not None:
-        query &= Q(phone = phone)
+        query &= Q(phone__icontains = phone)
 
     if adresse is not None:
-        query &= Q(adresse = adresse)
+        query &= Q(adresse__icontains = adresse)
 
     if profession is not None:
-        query &= Q(profession = profession)
+        query &= Q(profession__icontains = profession)
 
     if entreprise is not None:
-        query &= Q(entreprise = entreprise)
+        query &= Q(entreprise__icontains = entreprise)
 
     if query :
         queryset = queryset.filter(query)
@@ -120,7 +124,7 @@ def update_contact(request, pk):
         
         contact.save()
 
-        return Response('contact modifié avec succès', status=status.HTTP_204_NO_CONTENT)
+        return Response('Contact modifié avec succès', status=status.HTTP_200_OK)
     
     return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -133,6 +137,6 @@ def delete_contact(request, pk):
     try:
         contact = Contact.objects.get(pk=pk).delete()
 
-        return Response("Contact supprimer", status=status.HTTP_204_NO_CONTENT)
+        return Response("Contact supprimer", status=status.HTTP_200_OK)
     except Contact.DoesNotExist:
         return Response('Contact non trouvé', status=status.HTTP_404_NOT_FOUND)

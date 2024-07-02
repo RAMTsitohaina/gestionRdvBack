@@ -12,8 +12,11 @@ class Rdv (models.Model):
     # Date du Rdv
     date = models.DateField(null=False)
 
-    # Heure du Rdv
-    heure = models.TimeField(null=False)
+    # Heure de début du Rdv
+    heure_debut = models.TimeField(null=False, default=None)
+
+    # Heure de fin du rdv
+    heure_fin = models.TimeField(null=False, default=None)
 
     # Description du Rdv
     description = models.TextField(null=True)
