@@ -9,7 +9,8 @@ $ git clone https://github.com/RAMTsitohaina/gestionRdvBack.git
 $ cd gestionRdvBack
 ```
 
-Créer un environnement virtuel pour installer tous les dépendences et l'activer:
+Créer un environnement virtuel pour installer tous les dépendences et l'activer: 
+
 Linux
 ```sh
 $ virtualenv --python=python3 venv
