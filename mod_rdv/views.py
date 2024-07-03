@@ -120,6 +120,6 @@ def delete_rdv(request, pk):
     try:
         rdv = Rdv.objects.get(pk=pk).delete()
 
-        return Response("Rendez-vous supprimer", status=status.HTTP_204_NO_CONTENT)
+        return Response("Rendez-vous supprimer", status=status.HTTP_200_OK)
     except Rdv.DoesNotExist:
         return Response('Rendez-vous non trouvé', status=status.HTTP_404_NOT_FOUND)
