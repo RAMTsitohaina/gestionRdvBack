@@ -1,7 +1,7 @@
 # Backend gestion de rendez-vous
 
 
-## Configuration
+## Configuration
 
 Cloner le repository: 
 ```sh
