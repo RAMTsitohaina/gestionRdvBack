@@ -30,7 +30,9 @@ Installer les dépendences:
 À noter que le `(env)` avant la commande indique que le terminal fonctionne dans un environnement virtuel.  
 
 Configurer l'environnement pour accéder au base de données : 
+
 Créer un fichier .env
+
 Copier les codes dans .env-examples vers le nouveau fichier .env en suivant les instructions dans .env-examples
 
 Une fois que pip a fini de télécharger les dépendances :
